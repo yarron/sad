@@ -1,0 +1,18 @@
+<modification>
+	<id>RoboKassa module</id>
+	<version>1.4.x and 1.5.x</version>
+	<vqmver>1.0.8</vqmver>
+	<author>kin</author>
+	<file name="admin/controller/extension/payment.php">
+		<operation>
+			<search position="after"><![CDATA[$extension = basename($file, '.php');]]></search>
+			<add><![CDATA[if( preg_match("/^robokassa[\d]+$/", $extension) ) continue;]]></add>
+		</operation>
+	</file>
+	<file name="catalog/controller/checkout/payment_method.php">
+		<operation>
+			<search position="replace"><![CDATA[if (isset($this->session->data['comment'])) {]]></search>
+			<add><![CDATA[if( !empty($method_data) ) { $show_methods = array(); foreach($method_data as $method) { if( !empty($method['image']) )	{ $method['title'] = $method['image']; } $show_methods[] = $method; } $this->data['payment_methods'] = $show_methods; } if (isset($this->session->data['comment'])) {]]></add>
+		</operation>
+	</file>
+</modification>

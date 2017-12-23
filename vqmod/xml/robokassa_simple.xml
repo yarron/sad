@@ -1,0 +1,12 @@
+<modification>
+	<id>RoboKassa module for Simple</id>
+	<version>1.4.x and 1.5.x</version>
+	<vqmver>1.0.8</vqmver>
+	<author>kin</author>
+	<file name="catalog/view/theme/*/template/checkout/simplecheckout_payment.tpl">
+		<operation>
+			<search position="replace"><![CDATA[<label for="<?php echo $payment_method['code']; ?>"><?php echo $payment_method['title']; ?></label>]]></search>
+			<add><![CDATA[<?php if( !empty($payment_method['image']) ) { ?><label for="<?php echo $payment_method['code']; ?>"><?php echo $payment_method['image']; ?></label><?php } else { ?><label for="<?php echo $payment_method['code']; ?>"><?php echo $payment_method['title']; ?></label><?php } ?>]]></add>
+		</operation>
+	</file>	
+</modification>

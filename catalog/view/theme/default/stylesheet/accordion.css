@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+.urbangreymenu{
+    width: 180px; /*Ўирина меню*/
+}
+h3 {
+    font-size: 140%;
+    margin: 2px 0px 10px;
+}
+.urbangreymenu .headerbar{
+    font: bold 13px Verdana;
+    color: #fff;
+    background: transparent url('../image/bg-category.jpg') repeat-y;
+    margin-bottom: 2px; 
+    padding: 5px 0 5px 10px; 
+    border-radius: 20px;
+}
+
+.urbangreymenu .headerbar a:hover{ 
+    text-decoration: none;
+    color: #fff;
+    
+}
+
+.urbangreymenu .subs{
+    /*background:#585858; */
+    border: 2px solid #585858;
+    border-radius: 10px 10px 10px 10px;
+    
+}
+
+.urbangreymenu .headerbar a{
+    text-decoration: none;
+    font-family: 'Marck Script', cursive;
+    font-size: 13px;
+    color: #000;
+    display: block;
+}
+
+
+
+.urbangreymenu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0; /*bottom spacing between each UL and rest of content*/
+}
+.urbangreymenu ul li{
+    padding-bottom: 2px; 
+}
+
+
+.urbangreymenu ul li a{
+    font-family: 'Marck Script', cursive;
+    font-size: 12px;
+    color: black;
+    background: #D7DBDE;
+    display: block;
+    padding: 5px 0;
+    line-height: 17px;
+    padding-left: 8px; /*link text is indented 8px*/
+    text-decoration: none;
+}
+
+.urbangreymenu ul li a:visited{
+    color: #6D589D;
+}
+
+.urbangreymenu ul li a:hover{ 
+    text-decoration: none;
+    text-align: center;
+    background: #786b59; 
+    color: #fff;
+    width: 80%;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff0, 0 0 70px #ff0, 0 0 80px #ff0, 0 0 100px #ff0, 0 0 150px #ff0;
+    transform:translate(10px, 0px) rotate(0deg) scale(1.1);
+    -webkit-transform:translate(10px, 0px) rotate(0deg) scale(1.1); /** Chrome & Safari **/
+    -moz-transform:translate(10px, 0px) rotate(0deg) scale(1.1); /** Firefox **/
+    -o-transform:translate(10px, 0px) rotate(0deg) scale(1.1);/** Opera **/
+}
+
+.submenu li a { 
+    width: 90%;
+    background:#3366CC; 
+    border: 2px solid #3366CC;
+     border-radius: 10px 10px 10px 10px;
+     box-shadow: 2px 2px 1px 0 #ff0000;
+    text-align: center;
+}
