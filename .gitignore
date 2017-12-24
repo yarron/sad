@@ -3,3 +3,5 @@ logs/
 image/cache/
 cgi-bin/
 .well-known/
+config\.php
+system/cache/
