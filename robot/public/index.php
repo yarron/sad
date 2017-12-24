@@ -76,7 +76,9 @@ $app->get('/', function (Request $request, Response $response) use ($config){
         // Setting all needed info and passing in my email template.
         $admin_message = Swift_Message::newInstance($admin_theme)
             ->setFrom([$config['config_email'] => 'Robot Mail'])
-            ->setTo([$config['config_email'] => $config['config_name']])
+            ->setTo([
+                $config['config_email'] => $config['config_name']
+            ])
             ->setBody($admin_message)
             ->setContentType("text/html");
 
