@@ -47,7 +47,7 @@
         <?php if ($reward) { ?>
         <span><?php echo $text_reward; ?></span> <?php echo $reward; ?><br />
         <?php } ?>
-        <span><?php echo $text_stock; ?></span> <?php echo $stock; ?></div>
+      </div>
       
       <?php if ($download) { ?>
       <div class="download">
