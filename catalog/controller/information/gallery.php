@@ -26,6 +26,10 @@ class ControllerInformationGallery extends Controller {
 		    $gallery_info = $this->model_design_banner->getGallery($gallery_id);  
             $gallery_image = $this->model_design_banner->getBanner($gallery_id);
 
+            if (!isset($gallery_info['name'])) {
+            	return;
+			}
+
 			$this->data['breadcrumbs'][] = array(
 				'href'      => $this->url->link('information/gallery'),
 				'text'      => $this->language->get('heading_title'),

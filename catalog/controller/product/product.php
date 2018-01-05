@@ -553,11 +553,11 @@ class ControllerProductProduct extends Controller {
             $end = count($products)-1; //������� ��������� ���� �������
             
             //������� ��������� id ������
-            if($end > $key)
+            if($end > $key && isset($products[$key+1]))
                 $this->data['next'] = $this->url->link('product/product', $url . '&product_id=' . $products[$key+1]);
             
             //������� ���������� id ������, ���� �� ����
-            if($key)
+            if($key && isset($products[$key-1]))
                 $this->data['prev'] = $this->url->link('product/product', $url . '&product_id=' . $products[$key-1]);
             
             /*�����*/
@@ -704,7 +704,7 @@ class ControllerProductProduct extends Controller {
 			} else {
 				exit('Error: Headers already sent out!');
 			}
-		} else {
+		} elseif(isset($_SERVER['HTTP_REFERER'])) {
 			$this->redirect($_SERVER['HTTP_REFERER']);
 		}
 	}

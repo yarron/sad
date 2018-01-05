@@ -422,7 +422,7 @@ class ControllerCatalogInformation extends Controller {
         
         if (isset($this->request->post['category_id'])) {
 			$this->data['category_id'] = $this->request->post['category_id'];
-		} elseif ($information_info['category_id']) {
+		} elseif (isset($information_info['category_id'])) {
 			$this->data['category_id'] = $information_info['category_id'];
 		} else {
 			$this->data['category_id'] = 0;
