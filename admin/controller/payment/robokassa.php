@@ -1276,7 +1276,7 @@ class ControllerPaymentRobokassa extends Controller {
 		    if( $this->data['robokassa_test_mode'] )
 				$url = "http://test.robokassa.ru/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=".$interface_lang;
 			else
-				$url = "http://merchant.roboxchange.com/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=".$interface_lang;
+				$url = "http://auth.robokassa.ru/Merchant/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=".$interface_lang;
 
 			//$url = "http://auth.robokassa.ru/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=ru";
 			// http://merchant.roboxchange.com/WebService/Service.asmx/CalcOutSumm?MerchantLogin=obrands&IncCurrLabel=WMR&IncSum=210
@@ -1301,7 +1301,7 @@ class ControllerPaymentRobokassa extends Controller {
 			$all_images = array();
 			$currencies = array();
 
-			if(!$xml->Result[0]->Code){
+			if(!isset($xml->Result) || !$xml->Result[0]->Code){
 				$this->data['robokassa_methods'] = '';
 			}
 			elseif ($page){
@@ -1429,7 +1429,7 @@ class ControllerPaymentRobokassa extends Controller {
 					if( !empty( $this->data['robokassa_test_mode_store'][$store['store_id']] ) )
 					$url = "http://test.robokassa.ru/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=".$interface_lang;
 					else
-					$url = "http://merchant.roboxchange.com/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=".$interface_lang;
+					$url = "http://auth.robokassa.ru/Merchant/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=".$interface_lang;
 			
 					//$url = "http://auth.robokassa.ru/Webservice/Service.asmx/GetCurrencies?MerchantLogin=".$this->config->get('robokassa_shop_login')."&Language=ru";
 					// http://merchant.roboxchange.com/WebService/Service.asmx/CalcOutSumm?MerchantLogin=obrands&IncCurrLabel=WMR&IncSum=210
@@ -2571,7 +2571,7 @@ class ControllerPaymentRobokassa extends Controller {
 		
 		if( $CONFIG['robokassa_commission'] == 'shop' && !$CONFIG['robokassa_test_mode'] )
 		{
-			$url = 'http://merchant.roboxchange.com/WebService/Service.asmx/CalcOutSumm?MerchantLogin='.$mrh_login.
+			$url = 'http://auth.robokassa.ru/Merchant/WebService/Service.asmx/CalcOutSumm?MerchantLogin='.$mrh_login.
 					'&IncCurrLabel='.$in_curr.'&IncSum='.$out_summ.'&Language='.$culture;
 			
 			
