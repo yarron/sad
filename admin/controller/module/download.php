@@ -1,7 +1,17 @@
 <?php
 class ControllerModuleDownload extends Controller {
 	private $error = array(); 
-	
+
+	private function my_sort_array($a, $b)
+    {
+        if ($a['sort_order'] > $b['sort_order']) {
+            return 1;
+        } else if ($a['sort_order'] < $b['sort_order']) {
+            return -1;
+        }
+        return 0;
+    }
+
 	public function index() {   
 		$this->load->language('module/download');
 
@@ -10,7 +20,7 @@ class ControllerModuleDownload extends Controller {
 		$this->load->model('setting/setting');
 				
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			//print_r($this->request->post); die();
+            // print_r( $this->request->post); die();
             $this->model_setting_setting->editSetting('download', $this->request->post);		
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -32,15 +42,19 @@ class ControllerModuleDownload extends Controller {
         $this->data['text_download'] = $this->language->get('text_download');
         $this->data['text_all_category'] = $this->language->get('text_all_category');
         $this->data['text_no_download'] = $this->language->get('text_no_download');
-        
-		$this->data['entry_layout'] = $this->language->get('entry_layout');
+        $this->data['text_sort_order'] = $this->language->get('text_sort_order');
+
+        $this->data['entry_layout'] = $this->language->get('entry_layout');
 		$this->data['entry_position'] = $this->language->get('entry_position');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
+        $this->data['entry_category'] = $this->language->get('entry_category');
 		
 		$this->data['button_save'] = $this->language->get('button_save');
 		$this->data['button_cancel'] = $this->language->get('button_cancel');
 		$this->data['button_add_module'] = $this->language->get('button_add_module');
+        $this->data['button_add_category'] = $this->language->get('button_add_category');
+        $this->data['button_remove_category'] = $this->language->get('button_remove_category');
 		$this->data['button_remove'] = $this->language->get('button_remove');
 		
  		if (isset($this->error['warning'])) {
@@ -48,9 +62,7 @@ class ControllerModuleDownload extends Controller {
 		} else {
 			$this->data['error_warning'] = '';
 		}
-		
-		
-		
+
   		$this->data['breadcrumbs'] = array();
 
    		$this->data['breadcrumbs'][] = array(
@@ -74,19 +86,28 @@ class ControllerModuleDownload extends Controller {
 		$this->data['action'] = $this->url->link('module/download', 'token=' . $this->session->data['token'], 'SSL');
 		
 		$this->data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
-		
-        
-		
+
         $this->data['setting'] = array();
 		
-		if (isset($this->request->post['download_setting'])) {
-			$this->data['setting'] = $this->request->post['download_setting'];
-		} elseif ($this->config->get('download_setting')) { 
-			$this->data['setting'] = $this->config->get('download_setting');
+		if (isset($this->request->post['download_settings'])) {
+			$this->data['setting'] = $this->request->post['download_settings'];
+		} elseif ($this->config->get('download_settings')) {
+			$this->data['setting'] = $this->config->get('download_settings');
 		} else{
 		    $this->data['setting'] = array();
-		}	
-        //print_r($this->data['setting']); die();
+		}
+
+        $this->data['download_categories'] = array();
+
+        if (isset($this->request->post['download_categories'])) {
+            $this->data['categories'] = $this->request->post['download_categories'];
+        } elseif ($this->config->get('download_categories')) {
+            $this->data['categories'] = $this->config->get('download_categories');
+            usort($this->data['categories'], array($this, "my_sort_array"));
+        } else{
+            $this->data['categories'] = array();
+        }
+
         $this->data['modules'] = array();
 		
 		if (isset($this->request->post['download_module'])) {
@@ -98,15 +119,9 @@ class ControllerModuleDownload extends Controller {
 		$this->load->model('design/layout');
 		$this->data['layouts'] = $this->model_design_layout->getLayouts();
 
-        
-        $this->load->model('catalog/category');
-		$this->data['categories'] = $this->model_catalog_category->getCategoriesByParentId(0);
-        
         $this->load->model('catalog/download');
 		$this->data['downloads'] = $this->model_catalog_download->getDownloads();
-        
-        $this->data['download_categories'] = array();
-        
+
 		$this->template = 'module/download.tpl';
 		$this->children = array(
 			'common/header',
@@ -128,4 +143,6 @@ class ControllerModuleDownload extends Controller {
 		}	
 	}
 }
+
+
 ?>

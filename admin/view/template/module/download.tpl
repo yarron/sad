@@ -15,30 +15,37 @@
   </div>
   <div class="content">
     <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form">
-      <table  class="form">
+        <table class="form">
+            <tr>
+                <td style="width: 225px"><?php echo $entry_category; ?> <span class="required">*</span></td>
+                <? if (isset($setting['category_name'])) :?>
+                    <td><input name="download_settings[category_name]" value="<?php echo $setting['category_name']; ?>" /></td>
+                <? else :?>
+                    <td><input name="download_settings[category_name]" value="" /></td>
+                <? endif ?>
+            </tr>
+        </table>
+      <table id="category" class="list">
         <thead>
             <tr>
-                <td><b><?php echo $text_category; ?></b></td>
-                <td><b><?php echo $text_download; ?></b></td>
+                <td class="left"><b><?php echo $text_category; ?> <span class="required">*</span></b></td>
+                <td class="left"><b><?php echo $text_download; ?></b></td>
+                <td class="right"><b><?php echo $text_sort_order; ?></b></td>
+                <td class="left"></td>
             </tr>
         </thead>
-        <tbody>
+        <?php $category_row = 0; ?>
         <?php foreach ($categories as $category) { ?>
+        <tbody id="category-row<?php echo $category_row; ?>">
         <tr>
-           <td>
-                <?php if (array_key_exists($category['category_id'], $setting) && isset($setting[$category['category_id']]['category'])) { ?>
-                <input type="checkbox" name="download_setting[<?php echo $category['category_id']; ?>][category]" value="<?php echo $category['category_id']; ?>" checked="checked" />
-                <?php echo $category['name']; ?>
-                <?php } else { ?>
-                <input type="checkbox" name="download_setting[<?php echo $category['category_id']; ?>][category]" value="<?php echo $category['category_id']; ?>" />
-                <?php echo $category['name']; ?>
-                <?php } ?>
-           </td>   
-            <td>
-                <select name="download_setting[<?php echo $category['category_id']; ?>][download]">
+            <td class="left">
+                <input name="download_categories[<?php echo $category_row; ?>][category]" value="<?php echo $category['category']; ?>" />
+            </td>
+            <td class="left">
+                <select name="download_categories[<?php echo $category_row; ?>][download]">
                     <option value="0" ><?php echo $text_no_download; ?></option>
                     <?php foreach($downloads as $download) { ?>
-                        <?php if (array_key_exists($category['category_id'], $setting) && $setting[$category['category_id']]['download'] == $download['download_id'] ) { ?>
+                        <?php if (array_key_exists($category_row, $categories) && $categories[$category_row]['download'] == $download['download_id'] ) { ?>
                         <option value="<?php echo $download['download_id']; ?>" selected="selected" ><?php echo $download['name']; ?></option>
                         <?php } else { ?>
                         <option value="<?php echo $download['download_id']; ?>" ><?php echo $download['name']; ?></option>
@@ -46,9 +53,20 @@
                     <?php } ?>
                 </select>
             </td>
-        </tr>  
-        <?php } ?>
+            <td class="right">
+                <input name="download_categories[<?php echo $category_row; ?>][sort_order]" value="<?php echo $category['sort_order']; ?>" size="3" />
+            </td>
+            <td class="left"><a onclick="$('#category-row<?php echo $category_row; ?>').remove();" class="button"><span><?php echo $button_remove_category; ?></span></a></td>
+        </tr>
         </tbody>
+        <?php $category_row++; ?>
+        <?php } ?>
+        <tfoot>
+        <tr>
+          <td colspan="3"></td>
+          <td class="left"><a onclick="addCategory();" class="button"><span><?php echo $button_add_category; ?></span></a></td>
+        </tr>
+        </tfoot>
 	  </table>
       <table id="module" class="list">
         <thead>
@@ -64,7 +82,6 @@
         <?php foreach ($modules as $module) { ?>
         <tbody id="module-row<?php echo $module_row; ?>">
           <tr>
-            
             <td class="left"><select name="download_module[<?php echo $module_row; ?>][layout_id]">
                 <?php foreach ($layouts as $layout) { ?>
                 <?php if ($layout['layout_id'] == $module['layout_id']) { ?>
@@ -123,7 +140,26 @@
 </div>
 <script type="text/javascript"><!--
 var module_row = <?php echo $module_row; ?>;
+var category_row = <?php echo $category_row; ?>;
 
+function addCategory() {
+    html  = '<tbody id="category-row' + category_row + '">';
+    html += '<tr>';
+    html += '<td class="left"><input name="download_categories[' + category_row + '][category]" value="" /></td>';
+    html += '<td class="left"><select name="download_categories[' + category_row + '][download]">';
+    html += '<option value="0"><?php echo $text_no_download; ?></option>';
+    <?php foreach ($downloads as $download) { ?>
+        html += '<option value="<?php echo $download['download_id']; ?>"><?php echo $download['name']; ?></option>';
+    <?php } ?>
+    html += '</select></td>';
+    html += '<td class="right"><input name="download_categories[' + category_row + '][sort_order]" value="" size=3"" /></td>';
+    html += '<td class="left"><a onclick="$(\'#category-row' + category_row + '\').remove();" class="button"><span><?php echo $button_remove_category; ?></span></a></td>';
+    html += '</tr>';
+    html += '</tbody>';
+
+    $('#category tfoot').before(html);
+    category_row++;
+}
 function addModule() {	
 	html  = '<tbody id="module-row' + module_row + '">';
 	html += '  <tr>';
