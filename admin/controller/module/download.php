@@ -69,15 +69,17 @@ class ControllerModuleDownload extends Controller {
             $this->data['error_category_root'] = '';
         }
 
-        $this->data['error_category'] = array();
-
- 		foreach($this->error['category'] as $k=>$value) {
-            if (isset($this->error['category'][$k])) {
-                $this->data['error_category'][$k] = $this->error['category'][$k];
-            } else {
-                $this->data['error_category'][$k] = '';
+ 		if(isset($this->error['category'])) {
+            $this->data['error_category'] = array();
+            foreach($this->error['category'] as $k=>$value) {
+                if (isset($this->error['category'][$k])) {
+                    $this->data['error_category'][$k] = $this->error['category'][$k];
+                } else {
+                    $this->data['error_category'][$k] = '';
+                }
             }
         }
+
 
   		$this->data['breadcrumbs'] = array();
 
@@ -156,7 +158,7 @@ class ControllerModuleDownload extends Controller {
         if ( $category_root_length < 3 || $category_root_length > 64) {
             $this->error['category_root'] = $this->language->get('error_name');
         }
-        
+
         foreach($this->request->post['download_categories'] as $k=>$category) {
             $category_length = strlen(utf8_decode($category['category']));
 

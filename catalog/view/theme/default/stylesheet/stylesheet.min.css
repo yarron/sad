@@ -930,12 +930,18 @@ a.button:hover, input.button:hover {
     margin-bottom: 4px
 }
 
-#multi_display .ui-icon {
+#prices_module {
+    margin-top: -40px;
+}
+
+#multi_display .ui-icon,
+#prices_module .ui-icon{
     list-style: none;
     background-image: none
 }
 
-#multi_display ul {
+#multi_display ul,
+#prices_module ul {
     overflow: visible;
     height: auto;
     background: 0 0;
@@ -945,12 +951,14 @@ a.button:hover, input.button:hover {
     display: block
 }
 
-#multi_display > ul > li {
+#multi_display > ul > li,
+#prices_module > ul > li{
     border: none
 }
 
 .box-discount {
     margin-left: 10px;
+    margin-top: -20px;
 }
 .box-discount > .box-content {
     text-align: center;
@@ -977,7 +985,9 @@ a.button:hover, input.button:hover {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
 #multi_display > ul > li > a,
+#prices_module > ul > li > a,
 .box-discount > .box-heading {
     background: url(../image/bg-category.jpg) repeat-y;
     margin-top: 10px;
@@ -986,7 +996,7 @@ a.button:hover, input.button:hover {
     width: 163px;
     min-height: 40px;
     padding: 10px 5px 5px 15px;
-    line-height: 30px;
+    line-height: 35px;
     color: #ff0;
     border: none;
     display: block;
@@ -995,11 +1005,13 @@ a.button:hover, input.button:hover {
     position: relative;
 }
 
-#multi_display > ul > li > a:hover {
+#multi_display > ul > li > a:hover,
+#prices_module > ul > li > a:hover{
     text-decoration: none
 }
 .box-discount > .box-content,
-#multi_display > ul > li ul {
+#multi_display > ul > li ul,
+#prices_module > ul > li ul{
     margin-top: -15px;
     margin-left: 5px;
     background: url(../image/bg-category-list.png) top center repeat-y;
@@ -1010,7 +1022,8 @@ a.button:hover, input.button:hover {
     padding: 10px 10px 0
 }
 
-#multi_display > ul > li ul > li > a {
+#multi_display > ul > li ul > li > a,
+#prices_module > ul > li ul > li > a{
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: 15px;
@@ -1018,10 +1031,12 @@ a.button:hover, input.button:hover {
     display: block;
     border: none;
     text-decoration: none;
-    font-weight: 700
+    font-weight: 700;
+    text-align: left;
 }
 
-#multi_display > ul > li ul > li > a:hover {
+#multi_display > ul > li ul > li > a:hover,
+#prices_module > ul > li ul > li > a:hover{
     color: green
 }
 

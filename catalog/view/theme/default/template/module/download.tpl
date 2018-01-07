@@ -1,29 +1,25 @@
 <div class="box" >
-  <div class="box-heading"><?php echo $heading_title; ?></div>
   <div class="box-content">
-    <table id="download" >
-        <thead>
-            <tr bgcolor="#e3ca9a">
-                <th><?php echo $text_category; ?></th>
-                <th><?php echo $text_download; ?></th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($categories as $category) { ?>
-        <?php if (array_key_exists($category['category_id'], $setting) && isset($setting[$category['category_id']]['category'])) { ?>
-            <tr>
-                <td><?php echo $category['name']; ?></td>
-                <td>
-                <?php foreach ($downloads as $download) { ?>
-                    <?php if ($setting[$category['category_id']]['download'] == $download['download_id'] ) { ?>
-                    <a href="<?php echo $href.$download['download_id']; ?>"><?php echo $button_download; ?></a> 
-                    <?php } ?>
-                <?php } ?>
-                </td>
-            </tr>
-        <?php } ?>
-        <?php } ?>
-        </tbody>
-    </table>
+      <div class="box-category" id="prices_module">
+          <ul class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" role="tablist">
+              <li class="ui-accordion-li-fix">
+                  <a href="#" class="kids ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" aria-expanded="false" aria-selected="false">
+                      <?php echo $heading_title; ?>
+                  </a>
+                  <ul class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-accordion-icons">
+                      <? foreach ($categories as $category) :?>
+                         <? foreach ($downloads as $download) :?>
+                            <? if ($category['download'] == $download['download_id'] ) :?>
+                              <li class="ui-accordion-li-fix">
+                                  <a href="<?php echo $href.$download['download_id']; ?>" title="<?php echo $tooltip_download; ?>"><?php echo $category['category']; ?></a>
+                              </li>
+                            <? endif ?>
+                        <? endforeach ?>
+                      <? endforeach ?>
+                  </ul>
+              </li>
+          </ul>
+      </div>
   </div>
 </div>
+<script type="text/javascript"><?php echo $scripts; ?></script>
