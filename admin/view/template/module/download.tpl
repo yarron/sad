@@ -18,11 +18,16 @@
         <table class="form">
             <tr>
                 <td style="width: 225px"><?php echo $entry_category; ?> <span class="required">*</span></td>
-                <? if (isset($setting['category_name'])) :?>
-                    <td><input name="download_settings[category_name]" value="<?php echo $setting['category_name']; ?>" /></td>
-                <? else :?>
-                    <td><input name="download_settings[category_name]" value="" /></td>
-                <? endif ?>
+                <td>
+                    <? if (isset($setting['category_name'])) :?>
+                    <input name="download_settings[category_name]" value="<?php echo $setting['category_name']; ?>" />
+                    <? else :?>
+                    <input name="download_settings[category_name]" value="" />
+                    <? endif ?>
+                    <?php if ($error_category_root) { ?>
+                    <span class="error"><?php echo $error_category_root; ?></span>
+                    <?php } ?>
+                </td>
             </tr>
         </table>
       <table id="category" class="list">
@@ -35,11 +40,14 @@
             </tr>
         </thead>
         <?php $category_row = 0; ?>
-        <?php foreach ($categories as $category) { ?>
+        <?php foreach ($categories as $k=>$category) { ?>
         <tbody id="category-row<?php echo $category_row; ?>">
         <tr>
             <td class="left">
                 <input name="download_categories[<?php echo $category_row; ?>][category]" value="<?php echo $category['category']; ?>" />
+                <?php if (isset($error_category[$k])) { ?>
+                <span class="error"><?php echo $error_category[$k]; ?></span>
+                <?php } ?>
             </td>
             <td class="left">
                 <select name="download_categories[<?php echo $category_row; ?>][download]">

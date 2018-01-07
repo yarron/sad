@@ -63,6 +63,22 @@ class ControllerModuleDownload extends Controller {
 			$this->data['error_warning'] = '';
 		}
 
+        if (isset($this->error['category_root'])) {
+            $this->data['error_category_root'] = $this->error['category_root'];
+        } else {
+            $this->data['error_category_root'] = '';
+        }
+
+        $this->data['error_category'] = array();
+
+ 		foreach($this->error['category'] as $k=>$value) {
+            if (isset($this->error['category'][$k])) {
+                $this->data['error_category'][$k] = $this->error['category'][$k];
+            } else {
+                $this->data['error_category'][$k] = '';
+            }
+        }
+
   		$this->data['breadcrumbs'] = array();
 
    		$this->data['breadcrumbs'][] = array(
@@ -130,11 +146,29 @@ class ControllerModuleDownload extends Controller {
 				
 		$this->response->setOutput($this->render());
 	}
-	
+
 	private function validate() {
 		if (!$this->user->hasPermission('modify', 'module/download')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
+
+		$category_root_length = strlen(utf8_decode($this->request->post['download_settings']['category_name']));
+        if ( $category_root_length < 3 || $category_root_length > 64) {
+            $this->error['category_root'] = $this->language->get('error_name');
+        }
+        
+        foreach($this->request->post['download_categories'] as $k=>$category) {
+            $category_length = strlen(utf8_decode($category['category']));
+
+            if ( $category_length < 3 || $category_length > 64) {
+                if(!isset($this->error['category'][$k])) {
+                    $this->error['category'] = array();
+                }
+                $this->error['category'][$k] = $this->language->get('error_name');
+            }
+        }
+
+
 
 		if (!$this->error) {
 			return true;
