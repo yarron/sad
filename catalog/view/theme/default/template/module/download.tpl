@@ -7,15 +7,17 @@
                       <?php echo $heading_title; ?>
                   </a>
                   <ul class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-accordion-icons">
-                      <? foreach ($categories as $category) :?>
-                         <? foreach ($downloads as $download) :?>
-                            <? if ($category['download'] == $download['download_id'] ) :?>
-                              <li class="ui-accordion-li-fix">
-                                  <a href="<?php echo $href.$download['download_id']; ?>" title="<?php echo $tooltip_download; ?>"><?php echo $category['category']; ?></a>
-                              </li>
-                            <? endif ?>
-                        <? endforeach ?>
-                      <? endforeach ?>
+                      <? if (isset($categories)) :?>
+                          <? foreach ($categories as $category) :?>
+                             <? foreach ($downloads as $download) :?>
+                                <? if ($category['download'] == $download['download_id'] ) :?>
+                                  <li class="ui-accordion-li-fix">
+                                      <a href="<?php echo $href.$download['download_id']; ?>" title="<?php echo $tooltip_download; ?>"><?php echo $category['category']; ?></a>
+                                  </li>
+                                <? endif ?>
+                            <? endforeach ?>
+                          <? endforeach ?>
+                      <? endif ?>
                   </ul>
               </li>
           </ul>
