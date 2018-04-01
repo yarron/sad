@@ -109,7 +109,7 @@ class ControllerInformationReview extends Controller {
 		$pagination->page = $page;
 		$pagination->limit = 10; 
 		$pagination->text = $this->language->get('text_pagination');
-		$pagination->url = $this->url->link('information/review/review', 'page={page}');
+		$pagination->url = $this->url->link('information/review/review', 'page={page}', 'SSL');
 			
 		$this->data['pagination'] = $pagination->render();
 		

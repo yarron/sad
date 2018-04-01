@@ -165,16 +165,19 @@ class ControllerInformationPortal extends Controller {
     			$url .= '&page=' . $this->request->get['page'];
     		} else  $page = 1;
 
+
             $limit = $this->config->get('config_catalog_limit'); //лимит статей
 			$total = $this->model_catalog_portal->getTotalNews($category_id);
-	
+
+            $path = 'path=' . $this->request->get['path'];
+
             //формируем пагинацию
 			$pagination = new Pagination();
 			$pagination->total = $total;
 			$pagination->page = $page;
 			$pagination->limit = $limit;
 			$pagination->text = $this->language->get('text_pagination');
-			$pagination->url = $this->url->link('information/portal', $url . '&page={page}', 'SSL');
+			$pagination->url = $this->url->link('information/portal',$path.'&page={page}', 'SSL');
 	
 			$this->data['pagination'] = $pagination->render();
             

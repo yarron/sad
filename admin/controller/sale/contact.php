@@ -216,7 +216,11 @@ class ControllerSaleContact extends Controller {
 				}
 				
 				if ($emails) {
-                    $results = $this->model_sale_customer->setNewsletter($emails,$names,$this->request->post['subject'], addslashes(html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8')));
+                    $results = $this->model_sale_customer->setNewsletter(
+                        $emails,
+                        $names,
+                        addslashes(html_entity_decode( $this->request->post['subject'], ENT_QUOTES, 'UTF-8')),
+                        addslashes(html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8')));
 				    if($results)
                         $json['success'] = $this->language->get('text_success');
 				    else
