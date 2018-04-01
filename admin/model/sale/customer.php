@@ -530,7 +530,7 @@ class ModelSaleCustomer extends Model {
 		return $query->row['total'];
 	}
 
-    public function setNewsletter($emails, $names, $theme, $message){
+    public function setNewsletter($emails,$names, $theme, $message){
         $values = [];
 
         foreach($emails as $key=>$email){

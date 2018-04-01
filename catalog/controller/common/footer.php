@@ -8,11 +8,13 @@ class ControllerCommonFooter extends Controller {
 		} else {
 			$server = $this->config->get('config_url');
 		}
+        
+        
+		
 
 		$this->data['href'] = $this->url->link('information/review');
 		$this->data['image'] = $server . 'image/data/left-review.png';
-
-
+        		
 
 		$this->data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
 		

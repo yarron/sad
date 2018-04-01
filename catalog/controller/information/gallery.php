@@ -29,7 +29,7 @@ class ControllerInformationGallery extends Controller {
             if (!isset($gallery_info['name'])) {
             	return;
 			}
-
+			
 			$this->data['breadcrumbs'][] = array(
 				'href'      => $this->url->link('information/gallery'),
 				'text'      => $this->language->get('heading_title'),

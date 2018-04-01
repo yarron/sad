@@ -1,6 +1,8 @@
 .idea
 logs/
+image/data/
 image/cache/
+download
 cgi-bin/
 .well-known/
 config\.php
