@@ -1,9 +1,10 @@
 .idea
 logs/
-image/data/
-image/cache/
+image/data/*
+image/cache/*
 download
 cgi-bin/
 .well-known/
 config\.php
 system/cache/
+ubmzyrcq_shop.sql
