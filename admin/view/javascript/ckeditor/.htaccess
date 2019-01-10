@@ -13,7 +13,7 @@
 # All FCKeditor files are Unicode encoded.
 #
 
-AddType application/x-javascript .js
+#AddType application/x-javascript .js
 AddType text/css .css
 
 #

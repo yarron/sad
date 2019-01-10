@@ -390,10 +390,16 @@ class ControllerProductProduct extends Controller {
 					foreach ($option['option_value'] as $option_value) {
 						if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
 							if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-								if($option_value['price_prefix'] == "+")
-								    $price = $this->currency->format($this->tax->calculate($option_value['price'] + $this->data['price'], $product_info['tax_class_id'], $this->config->get('config_tax')));
-                                else
-                                    $price = $this->currency->format($this->tax->calculate($option_value['price'] - $this->data['price'], $product_info['tax_class_id'], $this->config->get('config_tax')));
+								$before_price = floatval(str_replace(",","", $this->data['price']));
+								$after_price = $before_price;
+								
+								if($option_value['price_prefix'] == "+"){
+								    $after_price = $option_value['price'] + $before_price;
+								} else {
+								    $after_price = $option_value['price'] - $before_price;
+								}
+								
+								$price = $this->currency->format($this->tax->calculate($after_price, $product_info['tax_class_id'], $this->config->get('config_tax')));
 							} else {
 								$price = false;
 							}
